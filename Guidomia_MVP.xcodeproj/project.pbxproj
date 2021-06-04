@@ -9,21 +9,33 @@
 /* Begin PBXBuildFile section */
 		18723B1E266A08510018336A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B1D266A08510018336A /* AppDelegate.swift */; };
 		18723B20266A08510018336A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B1F266A08510018336A /* SceneDelegate.swift */; };
-		18723B22266A08510018336A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B21266A08510018336A /* ViewController.swift */; };
-		18723B25266A08510018336A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18723B23266A08510018336A /* Main.storyboard */; };
 		18723B27266A08530018336A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18723B26266A08530018336A /* Assets.xcassets */; };
-		18723B2A266A08530018336A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18723B28266A08530018336A /* LaunchScreen.storyboard */; };
+		18723B39266A0B4A0018336A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B38266A0B4A0018336A /* BaseViewController.swift */; };
+		18723B3D266A0BFE0018336A /* BasePresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B3C266A0BFE0018336A /* BasePresenterProtocol.swift */; };
+		18723B40266A0E820018336A /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B3F266A0E820018336A /* AppRouter.swift */; };
+		18723B5B266A13210018336A /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B5A266A13210018336A /* MainCoordinator.swift */; };
+		18723B5F266A139C0018336A /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B5E266A139C0018336A /* Car.swift */; };
+		18723B64266A141B0018336A /* MainJSONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B63266A141B0018336A /* MainJSONService.swift */; };
+		18723B69266A15220018336A /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B68266A15220018336A /* MainPresenter.swift */; };
+		18723B7B266A1C7D0018336A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B79266A1C7D0018336A /* MainViewController.swift */; };
+		18723B7C266A1C7D0018336A /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18723B7A266A1C7D0018336A /* MainViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		18723B1A266A08510018336A /* Guidomia_MVP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Guidomia_MVP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18723B1D266A08510018336A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18723B1F266A08510018336A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		18723B21266A08510018336A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		18723B24266A08510018336A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		18723B26266A08530018336A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		18723B29266A08530018336A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18723B2B266A08530018336A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18723B38266A0B4A0018336A /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		18723B3C266A0BFE0018336A /* BasePresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePresenterProtocol.swift; sourceTree = "<group>"; };
+		18723B3F266A0E820018336A /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
+		18723B5A266A13210018336A /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		18723B5E266A139C0018336A /* Car.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
+		18723B63266A141B0018336A /* MainJSONService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainJSONService.swift; sourceTree = "<group>"; };
+		18723B68266A15220018336A /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
+		18723B79266A1C7D0018336A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		18723B7A266A1C7D0018336A /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +53,6 @@
 			isa = PBXGroup;
 			children = (
 				18723B1C266A08510018336A /* Guidomia_MVP */,
-				18723B1B266A08510018336A /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -51,20 +62,100 @@
 				18723B1A266A08510018336A /* Guidomia_MVP.app */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		18723B1C266A08510018336A /* Guidomia_MVP */ = {
 			isa = PBXGroup;
 			children = (
-				18723B1D266A08510018336A /* AppDelegate.swift */,
-				18723B1F266A08510018336A /* SceneDelegate.swift */,
-				18723B21266A08510018336A /* ViewController.swift */,
-				18723B23266A08510018336A /* Main.storyboard */,
-				18723B26266A08530018336A /* Assets.xcassets */,
-				18723B28266A08530018336A /* LaunchScreen.storyboard */,
+				18723B45266A10290018336A /* Modules */,
+				18723B37266A0B0C0018336A /* Common */,
+				18723B35266A0AE20018336A /* Supporting Files */,
 				18723B2B266A08530018336A /* Info.plist */,
+				18723B1B266A08510018336A /* Products */,
 			);
 			path = Guidomia_MVP;
+			sourceTree = "<group>";
+		};
+		18723B35266A0AE20018336A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				18723B26266A08530018336A /* Assets.xcassets */,
+				18723B1D266A08510018336A /* AppDelegate.swift */,
+				18723B1F266A08510018336A /* SceneDelegate.swift */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		18723B37266A0B0C0018336A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				18723B38266A0B4A0018336A /* BaseViewController.swift */,
+				18723B3C266A0BFE0018336A /* BasePresenterProtocol.swift */,
+				18723B3F266A0E820018336A /* AppRouter.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		18723B45266A10290018336A /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				18723B58266A12690018336A /* Main */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		18723B58266A12690018336A /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				18723B6C266A15600018336A /* Controller */,
+				18723B67266A15080018336A /* Presenter */,
+				18723B62266A13F80018336A /* Services */,
+				18723B5D266A136A0018336A /* Models */,
+				18723B59266A12EB0018336A /* Coordinator */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		18723B59266A12EB0018336A /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				18723B5A266A13210018336A /* MainCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		18723B5D266A136A0018336A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				18723B5E266A139C0018336A /* Car.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		18723B62266A13F80018336A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				18723B63266A141B0018336A /* MainJSONService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		18723B67266A15080018336A /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				18723B68266A15220018336A /* MainPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		18723B6C266A15600018336A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				18723B79266A1C7D0018336A /* MainViewController.swift */,
+				18723B7A266A1C7D0018336A /* MainViewController.xib */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,9 +215,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18723B2A266A08530018336A /* LaunchScreen.storyboard in Resources */,
 				18723B27266A08530018336A /* Assets.xcassets in Resources */,
-				18723B25266A08510018336A /* Main.storyboard in Resources */,
+				18723B7C266A1C7D0018336A /* MainViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,32 +227,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18723B22266A08510018336A /* ViewController.swift in Sources */,
+				18723B64266A141B0018336A /* MainJSONService.swift in Sources */,
+				18723B7B266A1C7D0018336A /* MainViewController.swift in Sources */,
 				18723B1E266A08510018336A /* AppDelegate.swift in Sources */,
+				18723B5B266A13210018336A /* MainCoordinator.swift in Sources */,
 				18723B20266A08510018336A /* SceneDelegate.swift in Sources */,
+				18723B69266A15220018336A /* MainPresenter.swift in Sources */,
+				18723B39266A0B4A0018336A /* BaseViewController.swift in Sources */,
+				18723B40266A0E820018336A /* AppRouter.swift in Sources */,
+				18723B5F266A139C0018336A /* Car.swift in Sources */,
+				18723B3D266A0BFE0018336A /* BasePresenterProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		18723B23266A08510018336A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				18723B24266A08510018336A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		18723B28266A08530018336A /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				18723B29266A08530018336A /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		18723B2C266A08530018336A /* Debug */ = {
