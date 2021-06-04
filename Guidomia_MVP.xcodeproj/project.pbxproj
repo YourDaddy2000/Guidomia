@@ -19,6 +19,10 @@
 		18723B69266A15220018336A /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B68266A15220018336A /* MainPresenter.swift */; };
 		18723B7B266A1C7D0018336A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B79266A1C7D0018336A /* MainViewController.swift */; };
 		18723B7C266A1C7D0018336A /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18723B7A266A1C7D0018336A /* MainViewController.xib */; };
+		18723B86266A45350018336A /* Drawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B85266A45350018336A /* Drawer.swift */; };
+		18723B8A266A53270018336A /* Extension+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B89266A53270018336A /* Extension+UIViewController.swift */; };
+		18723B8E266A55AC0018336A /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B8D266A55AC0018336A /* Extension+UIColor.swift */; };
+		18723B93266A6B8A0018336A /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B92266A6B8A0018336A /* BaseNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +40,10 @@
 		18723B68266A15220018336A /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		18723B79266A1C7D0018336A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		18723B7A266A1C7D0018336A /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		18723B85266A45350018336A /* Drawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawer.swift; sourceTree = "<group>"; };
+		18723B89266A53270018336A /* Extension+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIViewController.swift"; sourceTree = "<group>"; };
+		18723B8D266A55AC0018336A /* Extension+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
+		18723B92266A6B8A0018336A /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,9 +98,10 @@
 		18723B37266A0B0C0018336A /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				18723B38266A0B4A0018336A /* BaseViewController.swift */,
-				18723B3C266A0BFE0018336A /* BasePresenterProtocol.swift */,
+				18723B88266A53160018336A /* Extensions */,
+				18723B95266A6C7D0018336A /* Base Classes */,
 				18723B3F266A0E820018336A /* AppRouter.swift */,
+				18723B85266A45350018336A /* Drawer.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -156,6 +165,25 @@
 				18723B7A266A1C7D0018336A /* MainViewController.xib */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		18723B88266A53160018336A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				18723B89266A53270018336A /* Extension+UIViewController.swift */,
+				18723B8D266A55AC0018336A /* Extension+UIColor.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		18723B95266A6C7D0018336A /* Base Classes */ = {
+			isa = PBXGroup;
+			children = (
+				18723B38266A0B4A0018336A /* BaseViewController.swift */,
+				18723B3C266A0BFE0018336A /* BasePresenterProtocol.swift */,
+				18723B92266A6B8A0018336A /* BaseNavigationController.swift */,
+			);
+			path = "Base Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,11 +259,15 @@
 				18723B7B266A1C7D0018336A /* MainViewController.swift in Sources */,
 				18723B1E266A08510018336A /* AppDelegate.swift in Sources */,
 				18723B5B266A13210018336A /* MainCoordinator.swift in Sources */,
+				18723B86266A45350018336A /* Drawer.swift in Sources */,
 				18723B20266A08510018336A /* SceneDelegate.swift in Sources */,
 				18723B69266A15220018336A /* MainPresenter.swift in Sources */,
 				18723B39266A0B4A0018336A /* BaseViewController.swift in Sources */,
+				18723B93266A6B8A0018336A /* BaseNavigationController.swift in Sources */,
+				18723B8A266A53270018336A /* Extension+UIViewController.swift in Sources */,
 				18723B40266A0E820018336A /* AppRouter.swift in Sources */,
 				18723B5F266A139C0018336A /* Car.swift in Sources */,
+				18723B8E266A55AC0018336A /* Extension+UIColor.swift in Sources */,
 				18723B3D266A0BFE0018336A /* BasePresenterProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
