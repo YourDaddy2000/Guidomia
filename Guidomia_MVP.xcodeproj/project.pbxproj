@@ -23,6 +23,14 @@
 		18723B8A266A53270018336A /* Extension+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B89266A53270018336A /* Extension+UIViewController.swift */; };
 		18723B8E266A55AC0018336A /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B8D266A55AC0018336A /* Extension+UIColor.swift */; };
 		18723B93266A6B8A0018336A /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B92266A6B8A0018336A /* BaseNavigationController.swift */; };
+		18723B9A266A71700018336A /* MainVCHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B99266A71700018336A /* MainVCHeaderView.swift */; };
+		18723B9E266A71890018336A /* MainVCHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18723B9D266A71890018336A /* MainVCHeaderView.xib */; };
+		18723BA2266A788E0018336A /* MainVCExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723BA0266A788E0018336A /* MainVCExpandableCell.swift */; };
+		18723BA3266A788E0018336A /* MainVCExpandableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18723BA1266A788E0018336A /* MainVCExpandableCell.xib */; };
+		18723BB2266B5E6D0018336A /* CombinedMainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723BB1266B5E6C0018336A /* CombinedMainModel.swift */; };
+		18723BB5266B5F3F0018336A /* MainHeaderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723BB4266B5F3F0018336A /* MainHeaderModel.swift */; };
+		18723BB9266B6F180018336A /* car_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 18723BB8266B6F180018336A /* car_list.json */; };
+		18723BBD266B9A430018336A /* Extension+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723BBC266B9A430018336A /* Extension+Double.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +52,14 @@
 		18723B89266A53270018336A /* Extension+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIViewController.swift"; sourceTree = "<group>"; };
 		18723B8D266A55AC0018336A /* Extension+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
 		18723B92266A6B8A0018336A /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		18723B99266A71700018336A /* MainVCHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCHeaderView.swift; sourceTree = "<group>"; };
+		18723B9D266A71890018336A /* MainVCHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainVCHeaderView.xib; sourceTree = "<group>"; };
+		18723BA0266A788E0018336A /* MainVCExpandableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCExpandableCell.swift; sourceTree = "<group>"; };
+		18723BA1266A788E0018336A /* MainVCExpandableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainVCExpandableCell.xib; sourceTree = "<group>"; };
+		18723BB1266B5E6C0018336A /* CombinedMainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedMainModel.swift; sourceTree = "<group>"; };
+		18723BB4266B5F3F0018336A /* MainHeaderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHeaderModel.swift; sourceTree = "<group>"; };
+		18723BB8266B6F180018336A /* car_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = car_list.json; sourceTree = "<group>"; };
+		18723BBC266B9A430018336A /* Extension+Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Double.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +104,7 @@
 		18723B35266A0AE20018336A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				18723BB8266B6F180018336A /* car_list.json */,
 				18723B26266A08530018336A /* Assets.xcassets */,
 				18723B1D266A08510018336A /* AppDelegate.swift */,
 				18723B1F266A08510018336A /* SceneDelegate.swift */,
@@ -138,6 +155,8 @@
 			isa = PBXGroup;
 			children = (
 				18723B5E266A139C0018336A /* Car.swift */,
+				18723BB4266B5F3F0018336A /* MainHeaderModel.swift */,
+				18723BB1266B5E6C0018336A /* CombinedMainModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -161,6 +180,8 @@
 		18723B6C266A15600018336A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				18723B98266A713C0018336A /* Header */,
+				18723B97266A712E0018336A /* Cells */,
 				18723B79266A1C7D0018336A /* MainViewController.swift */,
 				18723B7A266A1C7D0018336A /* MainViewController.xib */,
 			);
@@ -172,6 +193,7 @@
 			children = (
 				18723B89266A53270018336A /* Extension+UIViewController.swift */,
 				18723B8D266A55AC0018336A /* Extension+UIColor.swift */,
+				18723BBC266B9A430018336A /* Extension+Double.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -184,6 +206,24 @@
 				18723B92266A6B8A0018336A /* BaseNavigationController.swift */,
 			);
 			path = "Base Classes";
+			sourceTree = "<group>";
+		};
+		18723B97266A712E0018336A /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				18723BA0266A788E0018336A /* MainVCExpandableCell.swift */,
+				18723BA1266A788E0018336A /* MainVCExpandableCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		18723B98266A713C0018336A /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				18723B99266A71700018336A /* MainVCHeaderView.swift */,
+				18723B9D266A71890018336A /* MainVCHeaderView.xib */,
+			);
+			path = Header;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,8 +283,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18723B9E266A71890018336A /* MainVCHeaderView.xib in Resources */,
 				18723B27266A08530018336A /* Assets.xcassets in Resources */,
 				18723B7C266A1C7D0018336A /* MainViewController.xib in Resources */,
+				18723BA3266A788E0018336A /* MainVCExpandableCell.xib in Resources */,
+				18723BB9266B6F180018336A /* car_list.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,10 +300,14 @@
 			files = (
 				18723B64266A141B0018336A /* MainJSONService.swift in Sources */,
 				18723B7B266A1C7D0018336A /* MainViewController.swift in Sources */,
+				18723BB2266B5E6D0018336A /* CombinedMainModel.swift in Sources */,
+				18723B9A266A71700018336A /* MainVCHeaderView.swift in Sources */,
+				18723BBD266B9A430018336A /* Extension+Double.swift in Sources */,
 				18723B1E266A08510018336A /* AppDelegate.swift in Sources */,
 				18723B5B266A13210018336A /* MainCoordinator.swift in Sources */,
 				18723B86266A45350018336A /* Drawer.swift in Sources */,
 				18723B20266A08510018336A /* SceneDelegate.swift in Sources */,
+				18723BA2266A788E0018336A /* MainVCExpandableCell.swift in Sources */,
 				18723B69266A15220018336A /* MainPresenter.swift in Sources */,
 				18723B39266A0B4A0018336A /* BaseViewController.swift in Sources */,
 				18723B93266A6B8A0018336A /* BaseNavigationController.swift in Sources */,
@@ -269,6 +316,7 @@
 				18723B5F266A139C0018336A /* Car.swift in Sources */,
 				18723B8E266A55AC0018336A /* Extension+UIColor.swift in Sources */,
 				18723B3D266A0BFE0018336A /* BasePresenterProtocol.swift in Sources */,
+				18723BB5266B5F3F0018336A /* MainHeaderModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

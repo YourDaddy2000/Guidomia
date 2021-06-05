@@ -13,4 +13,11 @@ struct CarModel: Codable {
     let model: String
     let prosList: [String]
     let rating: Double
+    
+    var imageName: String {
+        make.lowercased()
+            .appending(" ")
+            .appending(model.lowercased())
+            .replacingOccurrences(of: " ", with: "_")
+    }
 }
