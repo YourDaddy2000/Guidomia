@@ -74,12 +74,9 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: expandableCellId, for: indexPath) as! MainVCExpandableCell
-        let item = presenter.tableViewItems.cars[indexPath.row]
-        cell.bottomSpacerView.isHidden = indexPath.item == presenter.tableViewItems.cars.count-1
-        
-        cell.carImageView.image = UIImage(named: item.imageName)
-        cell.priceLabel.text = "Price : \(item.customerPrice.kFormatted)"
-        cell.titleLabel.text = item.make + " " + item.model
+        let items = presenter.tableViewItems.cars
+        let isLast = indexPath.item == items.count-1
+        cell.configure(with: items[indexPath.item], isLast: isLast)
         
         return cell
     }
