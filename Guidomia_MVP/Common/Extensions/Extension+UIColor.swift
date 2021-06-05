@@ -8,5 +8,5 @@
 import UIKit
 
 extension UIColor {
-    static let navBarOrange = #colorLiteral(red: 0.9883627295, green: 0.3786247373, blue: 0.08803100139, alpha: 1)
+    static let navBarOrange = #colorLiteral(red: 0.9882352941, green: 0.3764705882, blue: 0.0862745098, alpha: 1)
 }
