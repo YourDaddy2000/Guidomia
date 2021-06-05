@@ -24,10 +24,12 @@ class BaseViewController: UIViewController {
         return .lightContent
     }
     
+    override var title: String? { didSet { setTitle(title) } }
+    
     func configureNavBar() {
+        title = .guidomia
         setRightBarButton()
         setNavBarBackground()
-        setTitle("Guidomia")
     }
     
     func setNavBarBackground() {
@@ -35,36 +37,24 @@ class BaseViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(image, for: .default)
     }
     
-    func setTitle(_ title: String) {
-        let titleLabel = UILabel()
-        titleLabel.text = title.uppercased()
-        titleLabel.font = UIFont(name: "Copperplate", size: 27)
-        titleLabel.textColor = .white
-        titleLabel.sizeToFit()
-        titleLabel.frame.size.height = navBarHeight
-        titleLabel.frame.origin.x = 10
-        navigationController?.navigationBar.addSubview(titleLabel)
-        navigationItem.titleView = UIView()
-    }
-    
     func setRightBarButton() {
-        let img = Drawer.drawMenuButtonImage()
+        let image = Drawer.drawMenuButtonImage()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: img.withRenderingMode(.alwaysOriginal),
+            image: image.withRenderingMode(.alwaysOriginal),
             style: .plain,
             target: self,
             action: #selector(didTapRightBarButton))
     }
     
     @objc func didTapRightBarButton() {
-        show(message: "This has not been implemented yet", title: "Whoops!")
+        show(message: .notImplemented, title: .whoops)
     }
 }
     
 extension BaseViewController: BaseViewControllerProtocol {
     func show(error: NSError) {
-        self.show(message: error.localizedDescription, title: "Whoops!")
+        show(message: error.localizedDescription, title: .whoops)
     }
     
     func show(message: String, title: String?) {
@@ -72,12 +62,39 @@ extension BaseViewController: BaseViewControllerProtocol {
                                       message: message,
                                       preferredStyle: .alert)
         
-        let positiveAction = UIAlertAction(title: "ok",
+        let positiveAction = UIAlertAction(title: .ok,
                                            style: .default,
                                            handler: nil)
         popup.addAction(positiveAction)
         popup.preferredAction = positiveAction
-        
-        self.present(popup, animated: true, completion: nil)
+        present(popup, animated: true)
     }
+}
+
+//MARK: - Private Methods Extension
+ private extension BaseViewController {
+    func setTitle(_ title: String?) {
+        guard let title = title else { return }
+        let titleLabelTag = 123
+        let titleLabel = UILabel()
+        let navBar = navigationController?.navigationBar
+        titleLabel.text = title.uppercased()
+        titleLabel.font = UIFont(name: "Copperplate", size: 27)
+        titleLabel.textColor = .white
+        titleLabel.sizeToFit()
+        titleLabel.frame.size.height = navBarHeight
+        titleLabel.frame.origin.x = 10
+        titleLabel.tag = titleLabelTag
+        
+        navBar?.viewWithTag(titleLabelTag)?.removeFromSuperview()
+        navBar?.addSubview(titleLabel)
+        navigationItem.titleView = UIView()
+    }
+}
+
+private extension String {
+    static let whoops = "Whoops!"
+    static let notImplemented = "This is under development"
+    static let ok = "Ok"
+    static let guidomia = "Guidomia"
 }
