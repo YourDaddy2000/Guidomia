@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MainPresenterOutputProtocol: BaseViewControllerProtocol {
-    
+    func reloadTableView()
 }
 
 final class MainViewController: BaseViewController {
