@@ -12,7 +12,7 @@ struct CarModel: Codable {
     let marketPrice: Double
     let model: String
     let prosList: [String]
-    let rating: Double
+    let rating: Int
     
     var imageName: String {
         make.lowercased()
