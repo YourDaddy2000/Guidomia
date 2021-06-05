@@ -29,7 +29,10 @@ final class MainCoordinator {
     
     private func getMainController() -> UIViewController {
         let viewController = MainViewController()
-        let presenter = MainPresenter(viewController: viewController, coordinator: self)
+        let presenter = MainPresenter(
+            viewController: viewController,
+            coordinator: self,
+            api: MainJSONService())
         viewController.presenter = presenter
         
         return viewController

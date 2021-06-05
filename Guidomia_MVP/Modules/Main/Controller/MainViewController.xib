@@ -4,11 +4,13 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController" customModule="Guidomia_MVP" customModuleProvider="target">
             <connections>
+                <outlet property="tableView" destination="fvI-xo-1KD" id="PWU-ID-KxM"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,7 +21,23 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f4H-D6-Fog">
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="fvI-xo-1KD">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="llW-Ay-iBJ"/>
+                                <outlet property="delegate" destination="-1" id="qXe-f5-sLn"/>
+                            </connections>
+                        </tableView>
+                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="fvI-xo-1KD" secondAttribute="bottom" id="4qX-9v-Qcs"/>
+                        <constraint firstItem="fvI-xo-1KD" firstAttribute="leading" secondItem="f4H-D6-Fog" secondAttribute="leading" id="hS7-iN-FJP"/>
+                        <constraint firstItem="fvI-xo-1KD" firstAttribute="top" secondItem="f4H-D6-Fog" secondAttribute="top" id="jvD-AY-QGw"/>
+                        <constraint firstItem="fvI-xo-1KD" firstAttribute="centerX" secondItem="f4H-D6-Fog" secondAttribute="centerX" id="ubv-lf-sd7"/>
+                    </constraints>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="zPy-Ws-LRp"/>
@@ -30,7 +48,12 @@
                 <constraint firstItem="f4H-D6-Fog" firstAttribute="leading" secondItem="zPy-Ws-LRp" secondAttribute="leading" id="Yna-I0-mtQ"/>
                 <constraint firstItem="f4H-D6-Fog" firstAttribute="top" secondItem="zPy-Ws-LRp" secondAttribute="top" id="hdY-Rb-Bi9"/>
             </constraints>
-            <point key="canvasLocation" x="116" y="127"/>
+            <point key="canvasLocation" x="115.94202898550725" y="126.5625"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
