@@ -9,9 +9,14 @@ import Foundation
 
 protocol MainPresenterProtocol: BasePresenterProtocol {
     var tableViewItems: CombinedMainModel { get }
+    var prosAndConsStackViewWidth: Double { get set }
+    var expandedCellIndex: Int { get set }
+    
     init(viewController: MainPresenterOutputProtocol,
          coordinator: MainCoordinator,
          api: MainModuleApiProtocol)
+    func fetchCarList()
+    func fetchHeader()
 }
 
 final class MainPresenter: MainPresenterProtocol {
@@ -19,11 +24,9 @@ final class MainPresenter: MainPresenterProtocol {
     private weak var coordinator: MainCoordinator!
     private let api: MainModuleApiProtocol
     
-    var tableViewItems = CombinedMainModel() {
-        didSet {
-            controller.reloadTableView()
-        }
-    }
+    var tableViewItems = CombinedMainModel()
+    var prosAndConsStackViewWidth: Double = 0
+    var expandedCellIndex: Int = 0
     
     init(viewController: MainPresenterOutputProtocol,
          coordinator: MainCoordinator,
@@ -67,15 +70,20 @@ private extension MainPresenter {
         controller.show(error: error)
     }
     
-    func handle(_ header: MainHeaderModel?) {
-        if let header = header {
-            tableViewItems.header = header
+    func handle(_ model: MainHeaderModel?) {
+        if let model = model,
+           tableViewItems.header != model {
+            tableViewItems.header = model
+            controller.reloadTableView()
         }
     }
     
-    func handle(_ cars: [CarModel]?) {
-        if let cars = cars {
-            tableViewItems.cars = cars
+    func handle(_ models: [CarModel]?) {
+        if let models = models,
+           tableViewItems.cars != models {
+            tableViewItems.cars = models
+            tableViewItems.prosAndCons = models.map { ($0.prosList, $0.consList) }
+            controller.reloadTableView()
         }
     }
 }

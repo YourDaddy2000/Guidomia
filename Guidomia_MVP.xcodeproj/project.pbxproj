@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		181A49CE266C9DC6003E736A /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181A49CD266C9DC6003E736A /* Extension+UIView.swift */; };
 		18723B1E266A08510018336A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B1D266A08510018336A /* AppDelegate.swift */; };
 		18723B20266A08510018336A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B1F266A08510018336A /* SceneDelegate.swift */; };
 		18723B27266A08530018336A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18723B26266A08530018336A /* Assets.xcassets */; };
@@ -31,9 +32,11 @@
 		18723BB5266B5F3F0018336A /* MainHeaderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723BB4266B5F3F0018336A /* MainHeaderModel.swift */; };
 		18723BB9266B6F180018336A /* car_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 18723BB8266B6F180018336A /* car_list.json */; };
 		18723BBD266B9A430018336A /* Extension+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723BBC266B9A430018336A /* Extension+Double.swift */; };
+		18723BC3266BC2890018336A /* DotLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723BC2266BC2880018336A /* DotLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		181A49CD266C9DC6003E736A /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
 		18723B1A266A08510018336A /* Guidomia_MVP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Guidomia_MVP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18723B1D266A08510018336A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18723B1F266A08510018336A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +63,7 @@
 		18723BB4266B5F3F0018336A /* MainHeaderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHeaderModel.swift; sourceTree = "<group>"; };
 		18723BB8266B6F180018336A /* car_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = car_list.json; sourceTree = "<group>"; };
 		18723BBC266B9A430018336A /* Extension+Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Double.swift"; sourceTree = "<group>"; };
+		18723BC2266BC2880018336A /* DotLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +123,7 @@
 				18723B95266A6C7D0018336A /* Base Classes */,
 				18723B3F266A0E820018336A /* AppRouter.swift */,
 				18723B85266A45350018336A /* Drawer.swift */,
+				18723BC2266BC2880018336A /* DotLabel.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -194,6 +199,7 @@
 				18723B89266A53270018336A /* Extension+UIViewController.swift */,
 				18723B8D266A55AC0018336A /* Extension+UIColor.swift */,
 				18723BBC266B9A430018336A /* Extension+Double.swift */,
+				181A49CD266C9DC6003E736A /* Extension+UIView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -302,6 +308,8 @@
 				18723B7B266A1C7D0018336A /* MainViewController.swift in Sources */,
 				18723BB2266B5E6D0018336A /* CombinedMainModel.swift in Sources */,
 				18723B9A266A71700018336A /* MainVCHeaderView.swift in Sources */,
+				181A49CE266C9DC6003E736A /* Extension+UIView.swift in Sources */,
+				18723BC3266BC2890018336A /* DotLabel.swift in Sources */,
 				18723BBD266B9A430018336A /* Extension+Double.swift in Sources */,
 				18723B1E266A08510018336A /* AppDelegate.swift in Sources */,
 				18723B5B266A13210018336A /* MainCoordinator.swift in Sources */,
