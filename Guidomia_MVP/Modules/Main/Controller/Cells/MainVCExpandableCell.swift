@@ -8,20 +8,32 @@
 import UIKit
 
 class MainVCExpandableCell: UITableViewCell {
-    @IBOutlet weak var carImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var bottomSpacerView: UIView!
-    @IBOutlet weak var starsStackView: UIStackView!
+    @IBOutlet private weak var carImageView: UIImageView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var priceLabel: UILabel!
+    @IBOutlet private weak var bottomSpacerView: UIView!
+    @IBOutlet private weak var starsStackView: UIStackView!
+    @IBOutlet private(set) weak var prosStackView: UIStackView!
+    @IBOutlet private(set) weak var consStackView: UIStackView!
+    @IBOutlet private weak var prosStackViewContainer: UIStackView!
+    @IBOutlet private weak var constStackViewContainer: UIStackView!
+    
+    //MARK: Overrides
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        set(alpha: 0, for: starsStackView.arrangedSubviews)
+    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         bottomSpacerView.isHidden = false
-        starsStackView.subviews.forEach {
-            $0.alpha = 0
-        }
+        prosStackView.removeArrangedSubviews()
+        consStackView.removeArrangedSubviews()
+        expandProsAndCons(false)
+        set(alpha: 0, for: starsStackView.arrangedSubviews)
     }
     
+    //MARK: Public Methods
     func configure(with item: CarModel, isLast: Bool) {
         bottomSpacerView.isHidden = isLast
         
@@ -32,6 +44,13 @@ class MainVCExpandableCell: UITableViewCell {
         setRating(item.rating)
     }
     
+    func expandProsAndCons(_ isExpanded: Bool) {
+        hide(!isExpanded, views: [prosStackViewContainer,
+                                  constStackViewContainer,
+        ])
+    }
+    
+    //MARK: Private Methods
     private func setRating(_ rating: Int) {
         for i in 0..<rating {
             starsStackView.subviews[i].alpha = 1
