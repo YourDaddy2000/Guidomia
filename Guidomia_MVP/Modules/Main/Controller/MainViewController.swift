@@ -119,7 +119,13 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         cell.modelPickerViewAction = { [weak self, weak cell] in
-            self?.tableView?.performBatchUpdates({
+            guard let self = self,
+                  !self.presenter.selectedMake.isEmpty else {
+                cell?.makePickerViewAction?()
+                return
+            }
+            
+            self.tableView?.performBatchUpdates({
                 cell?.modelPickerView.reloadAllComponents()
                 cell?.modelPickerView.isHidden.toggle()
                 cell?.makePickerView.isHidden = true
