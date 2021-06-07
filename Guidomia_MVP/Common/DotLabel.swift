@@ -8,7 +8,7 @@
 import UIKit
 
 @IBDesignable
-class DotLabel: UILabel {
+final class DotLabel: UILabel {
     @IBInspectable
     var textOffset: CGFloat = 30
     

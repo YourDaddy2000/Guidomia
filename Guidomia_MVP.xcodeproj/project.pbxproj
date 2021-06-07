@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		181A49CE266C9DC6003E736A /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181A49CD266C9DC6003E736A /* Extension+UIView.swift */; };
+		181A49D9266CBB70003E736A /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181A49D7266CBB70003E736A /* FilterTableViewCell.swift */; };
+		181A49DA266CBB70003E736A /* FilterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 181A49D8266CBB70003E736A /* FilterTableViewCell.xib */; };
 		18723B1E266A08510018336A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B1D266A08510018336A /* AppDelegate.swift */; };
 		18723B20266A08510018336A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18723B1F266A08510018336A /* SceneDelegate.swift */; };
 		18723B27266A08530018336A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18723B26266A08530018336A /* Assets.xcassets */; };
@@ -37,6 +39,8 @@
 
 /* Begin PBXFileReference section */
 		181A49CD266C9DC6003E736A /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
+		181A49D7266CBB70003E736A /* FilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
+		181A49D8266CBB70003E736A /* FilterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterTableViewCell.xib; sourceTree = "<group>"; };
 		18723B1A266A08510018336A /* Guidomia_MVP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Guidomia_MVP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18723B1D266A08510018336A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18723B1F266A08510018336A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +81,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		181A49D4266CBB47003E736A /* Main Cell */ = {
+			isa = PBXGroup;
+			children = (
+				18723BA0266A788E0018336A /* MainVCExpandableCell.swift */,
+				18723BA1266A788E0018336A /* MainVCExpandableCell.xib */,
+			);
+			path = "Main Cell";
+			sourceTree = "<group>";
+		};
+		181A49D6266CBB51003E736A /* Filter Cell */ = {
+			isa = PBXGroup;
+			children = (
+				181A49D7266CBB70003E736A /* FilterTableViewCell.swift */,
+				181A49D8266CBB70003E736A /* FilterTableViewCell.xib */,
+			);
+			path = "Filter Cell";
+			sourceTree = "<group>";
+		};
 		18723B11266A08510018336A = {
 			isa = PBXGroup;
 			children = (
@@ -217,8 +239,8 @@
 		18723B97266A712E0018336A /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				18723BA0266A788E0018336A /* MainVCExpandableCell.swift */,
-				18723BA1266A788E0018336A /* MainVCExpandableCell.xib */,
+				181A49D6266CBB51003E736A /* Filter Cell */,
+				181A49D4266CBB47003E736A /* Main Cell */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -290,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18723B9E266A71890018336A /* MainVCHeaderView.xib in Resources */,
+				181A49DA266CBB70003E736A /* FilterTableViewCell.xib in Resources */,
 				18723B27266A08530018336A /* Assets.xcassets in Resources */,
 				18723B7C266A1C7D0018336A /* MainViewController.xib in Resources */,
 				18723BA3266A788E0018336A /* MainVCExpandableCell.xib in Resources */,
@@ -323,6 +346,7 @@
 				18723B40266A0E820018336A /* AppRouter.swift in Sources */,
 				18723B5F266A139C0018336A /* Car.swift in Sources */,
 				18723B8E266A55AC0018336A /* Extension+UIColor.swift in Sources */,
+				181A49D9266CBB70003E736A /* FilterTableViewCell.swift in Sources */,
 				18723B3D266A0BFE0018336A /* BasePresenterProtocol.swift in Sources */,
 				18723BB5266B5F3F0018336A /* MainHeaderModel.swift in Sources */,
 			);

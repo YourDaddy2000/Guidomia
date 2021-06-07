@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainVCHeaderView: UITableViewHeaderFooterView {
+final class MainVCHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var carImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!

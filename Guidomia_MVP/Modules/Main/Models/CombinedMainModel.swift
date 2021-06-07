@@ -9,4 +9,5 @@ struct CombinedMainModel {
     var header: MainHeaderModel?
     var cars: [CarModel] = []
     var prosAndCons: [(pros: [String], cons: [String])] = []
+    var pickerItems: [String: [String]] = [:]
 }
