@@ -40,13 +40,13 @@
                     </constraints>
                 </view>
             </subviews>
-            <viewLayoutGuide key="safeArea" id="zPy-Ws-LRp"/>
+            <viewLayoutGuide key="safeArea" id="jRr-Ee-G27"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="f4H-D6-Fog" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Ax1-px-ZRK"/>
-                <constraint firstItem="zPy-Ws-LRp" firstAttribute="bottom" secondItem="f4H-D6-Fog" secondAttribute="bottom" id="G7Q-XA-Wgk"/>
-                <constraint firstItem="f4H-D6-Fog" firstAttribute="leading" secondItem="zPy-Ws-LRp" secondAttribute="leading" id="Yna-I0-mtQ"/>
-                <constraint firstItem="f4H-D6-Fog" firstAttribute="top" secondItem="zPy-Ws-LRp" secondAttribute="top" id="hdY-Rb-Bi9"/>
+                <constraint firstAttribute="bottom" secondItem="f4H-D6-Fog" secondAttribute="bottom" id="G7Q-XA-Wgk"/>
+                <constraint firstItem="f4H-D6-Fog" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Yna-I0-mtQ"/>
+                <constraint firstItem="f4H-D6-Fog" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="hdY-Rb-Bi9"/>
             </constraints>
             <nil key="simulatedBottomBarMetrics"/>
             <point key="canvasLocation" x="115.94202898550725" y="126.5625"/>

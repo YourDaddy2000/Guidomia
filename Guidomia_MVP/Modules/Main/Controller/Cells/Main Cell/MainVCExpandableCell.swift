@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainVCExpandableCell: UITableViewCell {
+final class MainVCExpandableCell: UITableViewCell {
     @IBOutlet private weak var carImageView: UIImageView!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var priceLabel: UILabel!

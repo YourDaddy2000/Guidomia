@@ -11,6 +11,8 @@ protocol MainPresenterProtocol: BasePresenterProtocol {
     var tableViewItems: CombinedMainModel { get }
     var prosAndConsStackViewWidth: Double { get set }
     var expandedCellIndex: Int { get set }
+    var amountOfNonExpandableCells: Int { get }
+    var selectedMake: String { get set }
     
     init(viewController: MainPresenterOutputProtocol,
          coordinator: MainCoordinator,
@@ -26,7 +28,9 @@ final class MainPresenter: MainPresenterProtocol {
     
     var tableViewItems = CombinedMainModel()
     var prosAndConsStackViewWidth: Double = 0
+    var amountOfNonExpandableCells: Int = 1
     var expandedCellIndex: Int = 0
+    var selectedMake: String = ""
     
     init(viewController: MainPresenterOutputProtocol,
          coordinator: MainCoordinator,
@@ -83,6 +87,16 @@ private extension MainPresenter {
            tableViewItems.cars != models {
             tableViewItems.cars = models
             tableViewItems.prosAndCons = models.map { ($0.prosList, $0.consList) }
+            
+            let offers: [(make: String, model: String)] = models.map { ($0.make, $0.model) }
+            
+            
+            offers.forEach {
+                if tableViewItems.pickerItems[$0.make] == nil {
+                    tableViewItems.pickerItems[$0.make] = []
+                }
+                tableViewItems.pickerItems[$0.make]?.append($0.model)
+            }
             controller.reloadTableView()
         }
     }
