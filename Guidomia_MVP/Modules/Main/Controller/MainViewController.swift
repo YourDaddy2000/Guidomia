@@ -129,6 +129,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
             self.applyFilter(for: cell.makePickerView)
+            self.presenter.filter(model: self.presenter.selectedModel)
             
             self.tableView?.performBatchUpdates({
                 cell.modelPickerView.reloadAllComponents()
@@ -205,6 +206,7 @@ extension MainViewController: UIPickerViewDelegate, UIPickerViewDataSource {
                 return resetModelButtonName(of: cell)
             }
             
+            resetModelButtonName(of: cell)
             resetMakeButtonName(of: cell)
             resetSelectedMake()
             return
@@ -213,9 +215,10 @@ extension MainViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         let row = row - 1
         
         if pickerView.isModelPickerView {
-            return button(
-                cell.modelButton,
-                setTitle: items(for: pickerView)?[row])
+            let models = items(for: pickerView)
+            presenter.selectedModel = models?[row] ?? ""
+            button( cell.modelButton, setTitle: models?[row])
+            return
         }
         
         setSelectedMake(row)
@@ -249,7 +252,12 @@ extension MainViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     private func resetModelButtonName(of cell: FilterTableViewCell) {
+        resetSelectedModel()
         button(cell.modelButton, setTitle: anyString + modelString)
+    }
+    
+    func resetSelectedModel() {
+        presenter.selectedModel = ""
     }
     
     private func button(_ button: UIButton, setTitle title: String?) {
