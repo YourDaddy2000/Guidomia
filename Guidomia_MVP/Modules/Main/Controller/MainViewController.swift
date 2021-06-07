@@ -111,24 +111,29 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         cell.makePickerView.tag = makePickerViewTag
         cell.modelPickerView.tag = modelPickerViewTag
         
-        cell.makePickerViewAction = { [weak tableView, weak cell] in
-            tableView?.performBatchUpdates({
-                cell?.makePickerView.isHidden.toggle()
-                cell?.modelPickerView.isHidden = true
+        cell.makePickerViewAction = { [weak self, unowned cell] in
+            guard let self = self else { return }
+            self.applyFilter(for: cell.makePickerView)
+            
+            self.tableView.performBatchUpdates({
+                cell.makePickerView.isHidden.toggle()
+                cell.modelPickerView.isHidden = true
             })
         }
         
-        cell.modelPickerViewAction = { [weak self, weak cell] in
+        cell.modelPickerViewAction = { [weak self, unowned cell] in
             guard let self = self,
                   !self.presenter.selectedMake.isEmpty else {
-                cell?.makePickerViewAction?()
+                cell.makePickerViewAction?()
                 return
             }
             
+            self.applyFilter(for: cell.makePickerView)
+            
             self.tableView?.performBatchUpdates({
-                cell?.modelPickerView.reloadAllComponents()
-                cell?.modelPickerView.isHidden.toggle()
-                cell?.makePickerView.isHidden = true
+                cell.modelPickerView.reloadAllComponents()
+                cell.modelPickerView.isHidden.toggle()
+                cell.makePickerView.isHidden = true
             })
         }
         
@@ -138,6 +143,12 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         cell.modelPickerView.dataSource = self
         
         return cell
+    }
+    
+    private func applyFilter(for pickerView: UIPickerView) {
+        if !pickerView.isHidden {
+            presenter.filter(make: presenter.selectedMake)
+        }
     }
     
     private func getMainVCExpandableCell(for indexPath: IndexPath) -> UITableViewCell {
@@ -218,7 +229,11 @@ extension MainViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     private func setSelectedMake(_ index: Int) {
-        presenter.selectedMake = presenter.makesArray[index]
+        let make = presenter.makesArray[index]
+        
+        if presenter.selectedMake != make {
+            presenter.selectedMake = make
+        }
     }
     
     private func resetSelectedMake() {

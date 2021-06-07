@@ -19,12 +19,15 @@ protocol MainPresenterProtocol: BasePresenterProtocol {
          api: MainModuleApiProtocol)
     func fetchCarList()
     func fetchHeader()
+    func filter(make: String)
 }
 
 final class MainPresenter: MainPresenterProtocol {
     private weak var controller: MainPresenterOutputProtocol!
     private weak var coordinator: MainCoordinator!
     private let api: MainModuleApiProtocol
+    
+    private var carsBackup: [CarModel]?
     
     var tableViewItems = CombinedMainModel()
     var prosAndConsStackViewWidth: Double = 0
@@ -49,6 +52,7 @@ final class MainPresenter: MainPresenterProtocol {
         api.fetchCarList { [weak self] result in
             switch result {
             case .success(let cars):
+                self?.carsBackup = cars
                 self?.handle(cars)
             case .failure(let error):
                 self?.handle(error)
@@ -65,6 +69,16 @@ final class MainPresenter: MainPresenterProtocol {
                 self?.handle(error)
             }
         }
+    }
+    
+    func filter(make: String) {
+        if make.isEmpty {
+            return handle(carsBackup)
+        }
+        
+        let filteredItems = carsBackup?.filter { $0.make == make }
+        expandedCellIndex = 0
+        handle(filteredItems)
     }
 }
 
@@ -95,7 +109,10 @@ private extension MainPresenter {
                 if tableViewItems.pickerItems[$0.make] == nil {
                     tableViewItems.pickerItems[$0.make] = []
                 }
-                tableViewItems.pickerItems[$0.make]?.append($0.model)
+                
+                if !tableViewItems.pickerItems[$0.make]!.contains($0.model) {
+                    tableViewItems.pickerItems[$0.make]?.append($0.model)
+                }
             }
             controller.reloadTableView()
         }
