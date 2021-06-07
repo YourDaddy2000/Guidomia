@@ -13,6 +13,7 @@ protocol MainPresenterProtocol: BasePresenterProtocol {
     var expandedCellIndex: Int { get set }
     var amountOfNonExpandableCells: Int { get }
     var selectedMake: String { get set }
+    var selectedModel: String { get set }
     
     init(viewController: MainPresenterOutputProtocol,
          coordinator: MainCoordinator,
@@ -20,6 +21,7 @@ protocol MainPresenterProtocol: BasePresenterProtocol {
     func fetchCarList()
     func fetchHeader()
     func filter(make: String)
+    func filter(model: String)
 }
 
 final class MainPresenter: MainPresenterProtocol {
@@ -27,13 +29,14 @@ final class MainPresenter: MainPresenterProtocol {
     private weak var coordinator: MainCoordinator!
     private let api: MainModuleApiProtocol
     
-    private var carsBackup: [CarModel]?
+    private var carsBackup: [CarModel] = []
     
     var tableViewItems = CombinedMainModel()
     var prosAndConsStackViewWidth: Double = 0
     var amountOfNonExpandableCells: Int = 1
     var expandedCellIndex: Int = 0
     var selectedMake: String = ""
+    var selectedModel: String = ""
     
     init(viewController: MainPresenterOutputProtocol,
          coordinator: MainCoordinator,
@@ -52,7 +55,7 @@ final class MainPresenter: MainPresenterProtocol {
         api.fetchCarList { [weak self] result in
             switch result {
             case .success(let cars):
-                self?.carsBackup = cars
+                self?.carsBackup = cars ?? []
                 self?.handle(cars)
             case .failure(let error):
                 self?.handle(error)
@@ -76,7 +79,16 @@ final class MainPresenter: MainPresenterProtocol {
             return handle(carsBackup)
         }
         
-        let filteredItems = carsBackup?.filter { $0.make == make }
+        let filteredItems = carsBackup.filter { $0.make == make }
+        expandedCellIndex = 0
+        handle(filteredItems)
+    }
+    
+    func filter(model: String) {
+        filter(make: selectedMake)
+        
+        guard !model.isEmpty else { return }
+        let filteredItems = tableViewItems.cars.filter { $0.model == model }
         expandedCellIndex = 0
         handle(filteredItems)
     }
