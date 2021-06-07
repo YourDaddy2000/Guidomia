@@ -71,7 +71,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return presenter.tableViewItems.header == nil ? .zero : 250
+        return presenter.tableViewItems.header == nil ? .zero : tableView.bounds.width / 1.5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -79,7 +79,8 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard indexPath.item - presenter.amountOfNonExpandableCells != presenter.expandedCellIndex else { return }
+        guard indexPath.item - presenter.amountOfNonExpandableCells != presenter.expandedCellIndex,
+              indexPath.item != 0 else { return }
         presenter.expandedCellIndex = indexPath.item - presenter.amountOfNonExpandableCells
         
         tableView.performBatchUpdates { [weak tableView] in
