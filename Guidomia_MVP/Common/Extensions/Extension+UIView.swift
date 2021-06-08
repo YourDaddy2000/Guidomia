@@ -82,6 +82,10 @@ extension UIView {
     func removeSubviews() {
         subviews.forEach { $0.removeFromSuperview() }
     }
+    
+    static var id: String {
+        return String(describing: self)
+    }
 }
 
 extension UIStackView {

@@ -7,9 +7,6 @@
 
 import UIKit
 
-private let headerId = String(describing: MainVCHeaderView.self)
-private let expandableCellId = String(describing: MainVCExpandableCell.self)
-private let filterCellId = String(describing: FilterTableViewCell.self)
 private let makePickerViewTag = 0
 private let modelPickerViewTag = 1
 private let makeString: String = "Make"
@@ -17,11 +14,25 @@ private let modelString: String = "Model"
 private let anyString: String = "Any "
 
 protocol MainPresenterOutputProtocol: BaseViewControllerProtocol {
-    func reloadTableView()
+    func updateCars(_ cars: [CarModel]?)
+    func updateHeader(_ header: MainHeaderModel?)
 }
 
 final class MainViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
+    
+    private var tvItems = CombinedMainModel()
+    private var prosAndConsStackViewWidth: Double = 0
+    private var amountOfNonExpandableCells: Int = 1
+    private var expandedCellIndex: Int = 0
+    private var selectedMake: String = ""
+    private var selectedModel: String = ""
+    private var modelsArray: [String]? {
+        tvItems.pickerItems[selectedMake]
+    }
+    private var makesArray: [String] {
+        Array(tvItems.pickerItems.keys)
+    }
     
     var presenter: MainPresenterProtocol!
     
@@ -37,14 +48,9 @@ final class MainViewController: BaseViewController {
 //MARK: - Private Methods Extension
 private extension MainViewController {
     func configureTableView() {
-        let cellNib = UINib(nibName: expandableCellId, bundle: nil)
-        tableView.register(cellNib, forCellReuseIdentifier: expandableCellId)
-        
-        let filtercellNib = UINib(nibName: filterCellId, bundle: nil)
-        tableView.register(filtercellNib, forCellReuseIdentifier: filterCellId)
-        
-        let headerNib = UINib(nibName: headerId, bundle: nil)
-        tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: headerId)
+        tableView.register(MainVCHeaderView.self)
+        tableView.register([MainVCExpandableCell.self,
+                            FilterTableViewCell.self])
         
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 143
@@ -53,15 +59,41 @@ private extension MainViewController {
 
 // MARK: - Presenter output protocol implementation
 extension MainViewController: MainPresenterOutputProtocol {
-    func reloadTableView() {
-        tableView.reloadData()
+    func updateCars(_ cars: [CarModel]?) {
+        if let models = cars,
+           tvItems.cars != models {
+            tvItems.cars = models
+            tvItems.prosAndCons = models.map { ($0.prosList, $0.consList) }
+            
+            let offers: [(make: String, model: String)] = models.map { ($0.make, $0.model) }
+            
+            
+            offers.forEach {
+                if tvItems.pickerItems[$0.make] == nil {
+                    tvItems.pickerItems[$0.make] = []
+                }
+                
+                if !tvItems.pickerItems[$0.make]!.contains($0.model) {
+                    tvItems.pickerItems[$0.make]?.append($0.model)
+                }
+            }
+            
+            tableView.reloadData()
+        }
+    }
+    
+    func updateHeader(_ header: MainHeaderModel?) {
+        if let header = header, tvItems.header != header {
+            tvItems.header = header
+            tableView.reloadData()
+        }
     }
 }
 
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = presenter.tableViewItems.header else { return nil }
-        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerId)  as! MainVCHeaderView
+        guard let header = tvItems.header else { return nil }
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: MainVCHeaderView.id)  as! MainVCHeaderView
         
         view.carImageView.image = UIImage(named: header.backgroundImageName)
         view.titleLabel.text = header.title
@@ -71,17 +103,17 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return presenter.tableViewItems.header == nil ? .zero : tableView.bounds.width / 1.5
+        return tvItems.header == nil ? .zero : tableView.bounds.width / 1.5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.tableViewItems.cars.count + presenter.amountOfNonExpandableCells
+        return tvItems.cars.count + amountOfNonExpandableCells
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard indexPath.item - presenter.amountOfNonExpandableCells != presenter.expandedCellIndex,
+        guard indexPath.item - amountOfNonExpandableCells != expandedCellIndex,
               indexPath.item != 0 else { return }
-        presenter.expandedCellIndex = indexPath.item - presenter.amountOfNonExpandableCells
+        expandedCellIndex = indexPath.item - amountOfNonExpandableCells
         
         tableView.performBatchUpdates { [weak tableView] in
             tableView?.visibleCells.forEach {
@@ -89,7 +121,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
             if let cell = tableView?.dequeueReusableCell(
-                withIdentifier: expandableCellId,
+                withIdentifier: MainVCExpandableCell.id,
                 for: indexPath) as? MainVCExpandableCell {
                 cell.expandProsAndCons(true)
                 tableView?.reloadRows(at: [indexPath], with: .automatic)
@@ -103,12 +135,15 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         return getMainVCExpandableCell(for: IndexPath(
-                                        item: indexPath.item - presenter.amountOfNonExpandableCells,
+                                        item: indexPath.item - amountOfNonExpandableCells,
                                         section: .zero))
     }
-    
-    private func getFilterCell(for indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: filterCellId, for: indexPath) as! FilterTableViewCell
+}
+
+//MARK: - TableView Helper Methods
+private extension MainViewController {
+    func getFilterCell(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.id, for: indexPath) as! FilterTableViewCell
         cell.makePickerView.tag = makePickerViewTag
         cell.modelPickerView.tag = modelPickerViewTag
         
@@ -124,13 +159,17 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.modelPickerViewAction = { [weak self, unowned cell] in
             guard let self = self,
-                  !self.presenter.selectedMake.isEmpty else {
+                  !self.selectedMake.isEmpty else {
                 cell.makePickerViewAction?()
                 return
             }
             
+            self.expandedCellIndex = 0
             self.applyFilter(for: cell.makePickerView)
-            self.presenter.filter(model: self.presenter.selectedModel)
+            self.presenter.filter(
+                make: self.selectedMake,
+                model: self.selectedModel,
+                cars: self.tvItems.cars)
             
             self.tableView?.performBatchUpdates({
                 cell.modelPickerView.reloadAllComponents()
@@ -147,133 +186,27 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    private func applyFilter(for pickerView: UIPickerView) {
-        if !pickerView.isHidden {
-            presenter.filter(make: presenter.selectedMake)
-        }
-    }
-    
-    private func getMainVCExpandableCell(for indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: expandableCellId, for: indexPath) as! MainVCExpandableCell
-        let items = presenter.tableViewItems.cars
-        let isLast = indexPath.item == items.count - presenter.amountOfNonExpandableCells
-        let shouldExpand = indexPath.item == presenter.expandedCellIndex
+    func getMainVCExpandableCell(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: MainVCExpandableCell.id, for: indexPath) as! MainVCExpandableCell
+        let items = tvItems.cars
+        let isLast = indexPath.item == items.count - amountOfNonExpandableCells
+        let shouldExpand = indexPath.item == expandedCellIndex
         
-        presenter.setProsAndConsStackViewWidth(cell.prosStackView.bounds.width)
+        self.setProsAndConsStackViewWidth(cell.prosStackView.bounds.width)
         cell.configure(with: items[indexPath.item], isLast: isLast)
         cell.expandProsAndCons(shouldExpand)
         
-        let prosAndCons = presenter.tableViewItems.prosAndCons[indexPath.item]
-        presenter.cell(
+        let prosAndCons = tvItems.prosAndCons[indexPath.item]
+        self.cell(
             fill: cell.prosStackView,
-            stackViewWidth: presenter.prosAndConsStackViewWidth,
+            stackViewWidth: prosAndConsStackViewWidth,
             with: prosAndCons.pros)
-        presenter.cell(
+        self.cell(
             fill: cell.consStackView,
-            stackViewWidth: presenter.prosAndConsStackViewWidth,
+            stackViewWidth: prosAndConsStackViewWidth,
             with: prosAndCons.cons)
         
         return cell
-    }
-}
-
-private extension UIPickerView {
-    var isModelPickerView: Bool { tag == modelPickerViewTag }
-}
-
-//MARK: - UIPickerViewDelegate & UIPickerViewDataSource extension
-extension MainViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return (items(for: pickerView)?.count ?? 0) + 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if row > 0 {
-            return items(for: pickerView)?[row - 1]
-        }
-        
-        return ""
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        guard let cell = tableView.visibleCells.first(where: { $0 is FilterTableViewCell }) as? FilterTableViewCell else { return }
-        
-        if row == 0 {
-            if pickerView.isModelPickerView {
-                return resetModelButtonName(of: cell)
-            }
-            
-            resetModelButtonName(of: cell)
-            resetMakeButtonName(of: cell)
-            resetSelectedMake()
-            return
-        }
-        
-        let row = row - 1
-        
-        if pickerView.isModelPickerView {
-            let models = items(for: pickerView)
-            presenter.selectedModel = models?[row] ?? ""
-            button( cell.modelButton, setTitle: models?[row])
-            return
-        }
-        
-        setSelectedMake(row)
-        resetModelButtonName(of: cell)
-        selectEmptyRow(in: cell.modelPickerView)
-        button(cell.makeButton, setTitle: presenter.selectedMake)
-    }
-    
-    private func items(for pickerView: UIPickerView) -> [String]? {
-        pickerView.isModelPickerView ? presenter.modelsArray : presenter.makesArray
-    }
-    
-    private func setSelectedMake(_ index: Int) {
-        let make = presenter.makesArray[index]
-        
-        if presenter.selectedMake != make {
-            presenter.selectedMake = make
-        }
-    }
-    
-    private func resetSelectedMake() {
-        presenter.selectedMake = ""
-    }
-    
-    private func selectEmptyRow(in pickerView: UIPickerView) {
-        pickerView.selectRow(0, inComponent: 0, animated: false)
-    }
-    
-    private func resetMakeButtonName(of cell: FilterTableViewCell) {
-        button(cell.makeButton, setTitle: anyString + makeString)
-    }
-    
-    private func resetModelButtonName(of cell: FilterTableViewCell) {
-        resetSelectedModel()
-        button(cell.modelButton, setTitle: anyString + modelString)
-    }
-    
-    func resetSelectedModel() {
-        presenter.selectedModel = ""
-    }
-    
-    private func button(_ button: UIButton, setTitle title: String?) {
-        button.setTitle(title, for: .normal)
-    }
-}
-
-//MARK: - MainPresenterProtocol helping methods extension
-private extension MainPresenterProtocol {
-    var modelsArray: [String]? {
-        tableViewItems.pickerItems[selectedMake]
-    }
-    
-    var makesArray: [String] {
-        Array(tableViewItems.pickerItems.keys)
     }
     
     func setProsAndConsStackViewWidth(_ width: CGFloat) {
@@ -317,5 +250,104 @@ private extension MainPresenterProtocol {
         }
         
         label.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
+    }
+}
+
+private extension UIPickerView {
+    var isModelPickerView: Bool { tag == modelPickerViewTag }
+}
+
+//MARK: - UIPickerViewDelegate & UIPickerViewDataSource extension
+extension MainViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return (items(for: pickerView)?.count ?? 0) + 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if row > 0 {
+            return items(for: pickerView)?[row - 1]
+        }
+        
+        return ""
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        guard let cell = tableView.visibleCells.first(where: { $0 is FilterTableViewCell }) as? FilterTableViewCell else { return }
+        
+        if row == 0 {
+            if pickerView.isModelPickerView {
+                return resetModelButtonName(of: cell)
+            }
+            
+            resetModelButtonName(of: cell)
+            resetMakeButtonName(of: cell)
+            resetSelectedMake()
+            return
+        }
+        
+        let row = row - 1
+        
+        if pickerView.isModelPickerView {
+            let models = items(for: pickerView)
+            selectedModel = models?[row] ?? ""
+            button( cell.modelButton, setTitle: models?[row])
+            return
+        }
+        
+        setSelectedMake(row)
+        resetModelButtonName(of: cell)
+        selectEmptyRow(in: cell.modelPickerView)
+        button(cell.makeButton, setTitle: selectedMake)
+    }
+}
+
+//MARK: - PickerView Helper Methods
+private extension MainViewController {
+    func applyFilter(for pickerView: UIPickerView) {
+        if !pickerView.isHidden {
+            expandedCellIndex = 0
+            presenter.filter(make: selectedMake)
+        }
+    }
+    
+    func items(for pickerView: UIPickerView) -> [String]? {
+        pickerView.isModelPickerView ? modelsArray : makesArray
+    }
+    
+    func setSelectedMake(_ index: Int) {
+        let make = makesArray[index]
+        
+        if selectedMake != make {
+            selectedMake = make
+        }
+    }
+    
+    func resetSelectedMake() {
+        selectedMake = ""
+    }
+    
+    func selectEmptyRow(in pickerView: UIPickerView) {
+        pickerView.selectRow(0, inComponent: 0, animated: false)
+    }
+    
+    func resetMakeButtonName(of cell: FilterTableViewCell) {
+        button(cell.makeButton, setTitle: anyString + makeString)
+    }
+    
+    func resetModelButtonName(of cell: FilterTableViewCell) {
+        resetSelectedModel()
+        button(cell.modelButton, setTitle: anyString + modelString)
+    }
+    
+    func resetSelectedModel() {
+        selectedModel = ""
+    }
+    
+    func button(_ button: UIButton, setTitle title: String?) {
+        button.setTitle(title, for: .normal)
     }
 }
