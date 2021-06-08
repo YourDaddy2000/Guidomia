@@ -16,7 +16,7 @@ final class MainViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     
     private var tvItems = CombinedMainModel()
-    private var prosAndConsStackViewWidth: Double = 0
+//    private var prosAndConsStackViewWidth: CGFloat = 0
     private var amountOfNonExpandableCells: Int = 1
     private var expandedCellIndex: Int = 0
     private var selectedMake: String = ""
@@ -181,64 +181,14 @@ private extension MainViewController {
         let isLast = indexPath.item == items.count - amountOfNonExpandableCells
         let shouldExpand = indexPath.item == expandedCellIndex
         
-        self.setProsAndConsStackViewWidth(cell.prosStackView.bounds.width)
         cell.configure(with: items[indexPath.item], isLast: isLast)
         cell.expandProsAndCons(shouldExpand)
         
         let prosAndCons = tvItems.prosAndCons[indexPath.item]
-        self.cell(
-            fill: cell.prosStackView,
-            stackViewWidth: prosAndConsStackViewWidth,
-            with: prosAndCons.pros)
-        self.cell(
-            fill: cell.consStackView,
-            stackViewWidth: prosAndConsStackViewWidth,
-            with: prosAndCons.cons)
+        cell.fillProsStackView(with: prosAndCons.pros)
+        cell.fillConsStackView(with: prosAndCons.cons)
         
         return cell
-    }
-    
-    func setProsAndConsStackViewWidth(_ width: CGFloat) {
-        if prosAndConsStackViewWidth.isZero {
-            prosAndConsStackViewWidth = Double(width)
-        }
-    }
-    
-    func cell(fill stackView: UIStackView, stackViewWidth width: Double, with strings: [String]) {
-        strings.forEach {
-            guard !$0.isEmpty else { return }
-            let label = getDotLabelForProsAndConsStackView()
-            label.text = $0
-            setHeight(of: label, stackViewWidth: CGFloat(width))
-            stackView.addArrangedSubview(label)
-        }
-    }
-    
-    func getDotLabelForProsAndConsStackView() -> DotLabel {
-        let label = DotLabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.numberOfLines = .zero
-        
-        return label
-    }
-    
-    func setHeight(of label: DotLabel, stackViewWidth: CGFloat) {
-        guard stackViewWidth > .zero else { return }
-        label.sizeToFit()
-        var labelHeight = label.bounds.height
-        
-        if label.frame.width > stackViewWidth {
-            var sizeDiff = Int(label.frame.width / stackViewWidth)
-            let height = labelHeight
-            
-            while sizeDiff > .zero {
-                labelHeight += height
-                sizeDiff -= 1
-            }
-        }
-        
-        label.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
     }
 }
 
