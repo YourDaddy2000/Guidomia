@@ -7,12 +7,6 @@
 
 import UIKit
 
-private let makePickerViewTag = 0
-private let modelPickerViewTag = 1
-private let makeString: String = "Make"
-private let modelString: String = "Model"
-private let anyString: String = "Any "
-
 protocol MainPresenterOutputProtocol: BaseViewControllerProtocol {
     func updateCars(_ cars: [CarModel]?)
     func updateHeader(_ header: MainHeaderModel?)
@@ -93,12 +87,14 @@ extension MainViewController: MainPresenterOutputProtocol {
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tvItems.header else { return nil }
-        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: MainVCHeaderView.id)  as! MainVCHeaderView
+        let view = tableView.dequeue(MainVCHeaderView.self)
         
-        view.carImageView.image = UIImage(named: header.backgroundImageName)
-        view.titleLabel.text = header.title
-        view.subtitleLabel.text = header.subtitle
-
+        view.configure(with: (
+                        imageName: header.backgroundImageName,
+                        titleText: header.title,
+                        subtitleText: header.subtitle)
+        )
+        
         return view
     }
     
@@ -143,51 +139,44 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 //MARK: - TableView Helper Methods
 private extension MainViewController {
     func getFilterCell(for indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.id, for: indexPath) as! FilterTableViewCell
-        cell.makePickerView.tag = makePickerViewTag
-        cell.modelPickerView.tag = modelPickerViewTag
+        let cell = tableView.dequeue(FilterTableViewCell.self)
         
-        cell.makePickerViewAction = { [weak self, unowned cell] in
-            guard let self = self else { return }
-            self.applyFilter(for: cell.makePickerView)
+        cell.makePickerViewAction = { [weak self] makePV, modelPV in
+            self?.applyFilter(forMakePickerView: makePV, selectedMake: self!.selectedMake)
             
-            self.tableView.performBatchUpdates({
-                cell.makePickerView.isHidden.toggle()
-                cell.modelPickerView.isHidden = true
+            self?.tableView.performBatchUpdates({
+                makePV.isHidden.toggle()
+                modelPV.isHidden = true
             })
         }
         
-        cell.modelPickerViewAction = { [weak self, unowned cell] in
+        cell.modelPickerViewAction = { [weak self, unowned cell] makePV, modePV in
             guard let self = self,
                   !self.selectedMake.isEmpty else {
-                cell.makePickerViewAction?()
-                return
+                return cell.didTapMakeButton()
             }
             
             self.expandedCellIndex = 0
-            self.applyFilter(for: cell.makePickerView)
+            self.applyFilter(forMakePickerView: makePV, selectedMake: self.selectedMake)
             self.presenter.filter(
                 make: self.selectedMake,
                 model: self.selectedModel,
                 cars: self.tvItems.cars)
             
             self.tableView?.performBatchUpdates({
-                cell.modelPickerView.reloadAllComponents()
-                cell.modelPickerView.isHidden.toggle()
-                cell.makePickerView.isHidden = true
+                modePV.reloadAllComponents()
+                modePV.isHidden.toggle()
+                makePV.isHidden = true
             })
         }
         
-        cell.makePickerView.delegate = self
-        cell.modelPickerView.delegate = self
-        cell.makePickerView.dataSource = self
-        cell.modelPickerView.dataSource = self
+        cell.setPickerViewDelegate(delegate: self)
         
         return cell
     }
     
     func getMainVCExpandableCell(for indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MainVCExpandableCell.id, for: indexPath) as! MainVCExpandableCell
+        let cell = tableView.dequeue(MainVCExpandableCell.self)
         let items = tvItems.cars
         let isLast = indexPath.item == items.count - amountOfNonExpandableCells
         let shouldExpand = indexPath.item == expandedCellIndex
@@ -254,7 +243,7 @@ private extension MainViewController {
 }
 
 private extension UIPickerView {
-    var isModelPickerView: Bool { tag == modelPickerViewTag }
+    var isModelPickerView: Bool { tag == 1 } // tag is set in .xib
 }
 
 //MARK: - UIPickerViewDelegate & UIPickerViewDataSource extension
@@ -280,11 +269,11 @@ extension MainViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         
         if row == 0 {
             if pickerView.isModelPickerView {
-                return resetModelButtonName(of: cell)
+                return cell.resetModelButtonName()
             }
             
-            resetModelButtonName(of: cell)
-            resetMakeButtonName(of: cell)
+            cell.resetModelButtonName()
+            cell.resetMakeButtonName()
             resetSelectedMake()
             return
         }
@@ -294,20 +283,20 @@ extension MainViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         if pickerView.isModelPickerView {
             let models = items(for: pickerView)
             selectedModel = models?[row] ?? ""
-            button( cell.modelButton, setTitle: models?[row])
+            cell.setModelButtonTitle(models?[row])
             return
         }
         
         setSelectedMake(row)
-        resetModelButtonName(of: cell)
-        selectEmptyRow(in: cell.modelPickerView)
-        button(cell.makeButton, setTitle: selectedMake)
+        cell.resetModelButtonName()
+        cell.selectModelPickerViewEmptyRow()
+        cell.setMakeButtonTitle(selectedMake)
     }
 }
 
 //MARK: - PickerView Helper Methods
 private extension MainViewController {
-    func applyFilter(for pickerView: UIPickerView) {
+    func applyFilter(forMakePickerView pickerView: UIPickerView, selectedMake: String) {
         if !pickerView.isHidden {
             expandedCellIndex = 0
             presenter.filter(make: selectedMake)
@@ -330,24 +319,7 @@ private extension MainViewController {
         selectedMake = ""
     }
     
-    func selectEmptyRow(in pickerView: UIPickerView) {
-        pickerView.selectRow(0, inComponent: 0, animated: false)
-    }
-    
-    func resetMakeButtonName(of cell: FilterTableViewCell) {
-        button(cell.makeButton, setTitle: anyString + makeString)
-    }
-    
-    func resetModelButtonName(of cell: FilterTableViewCell) {
-        resetSelectedModel()
-        button(cell.modelButton, setTitle: anyString + modelString)
-    }
-    
     func resetSelectedModel() {
         selectedModel = ""
-    }
-    
-    func button(_ button: UIButton, setTitle title: String?) {
-        button.setTitle(title, for: .normal)
     }
 }
