@@ -15,6 +15,10 @@ protocol MainPresenterProtocol: BasePresenterProtocol {
     func fetchHeader()
     func filter(make: String)
     func filter(modelName: String, cars: [CarModel])
+    func convertOffersIntoPickerItems(
+        currentPickerItems: [String : [String]],
+        offers: [(make: String, model: String)]
+    ) -> [String : [String]]
 }
 
 final class MainPresenter: MainPresenterProtocol {
@@ -42,7 +46,7 @@ final class MainPresenter: MainPresenterProtocol {
             switch result {
             case .success(let cars):
                 self?.carsBackup = cars ?? []
-                self?.controller.updateCars(cars)
+                self?.handle(cars)
             case .failure(let error):
                 self?.handle(error)
             }
@@ -53,7 +57,7 @@ final class MainPresenter: MainPresenterProtocol {
         api.fetchHeader { [weak self] result in
             switch result {
             case .success(let header):
-                self?.controller.updateHeader(header)
+                self?.handle(header)
             case .failure(let error):
                 self?.handle(error)
             }
@@ -62,17 +66,36 @@ final class MainPresenter: MainPresenterProtocol {
     
     func filter(make: String) {
         if make.isEmpty {
-            return controller.updateCars(carsBackup)
+            return handle(carsBackup)
         }
         
         let filteredItems = carsBackup.filter { $0.make == make }
-        controller.updateCars(filteredItems)
+        handle(filteredItems)
     }
     
     func filter(modelName: String, cars: [CarModel]) {
         guard !modelName.isEmpty else { return }
         let filteredItems = cars.filter { $0.model == modelName }
-        controller.updateCars(filteredItems)
+        handle(filteredItems)
+    }
+    
+    func convertOffersIntoPickerItems(
+        currentPickerItems: [String : [String]],
+        offers: [(make: String, model: String)]
+    ) -> [String : [String]] {
+        var newPI = currentPickerItems
+        
+        offers.forEach {
+            if newPI[$0.make] == nil {
+                newPI[$0.make] = []
+            }
+
+            if !newPI[$0.make]!.contains($0.model) {
+                newPI[$0.make]?.append($0.model)
+            }
+        }
+        
+        return newPI
     }
 }
 
@@ -80,5 +103,20 @@ final class MainPresenter: MainPresenterProtocol {
 private extension MainPresenter {
     func handle(_ error: NSError) {
         controller.show(error: error)
+    }
+    
+    func handle(_ header: MainHeaderModel?) {
+        if let header = header {
+            controller.updateHeader(header)
+        }
+    }
+    
+    func handle(_ cars: [CarModel]?) {
+        guard let cars = cars else { return }
+        let prosAndCons = cars.map { ($0.prosList, $0.consList) }
+        
+        let offers: [(make: String, model: String)] = cars.map { ($0.make, $0.model) }
+        
+        controller.updateCars(cars, offers, prosAndCons)
     }
 }

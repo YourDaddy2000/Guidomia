@@ -8,15 +8,17 @@
 import UIKit
 
 protocol MainPresenterOutputProtocol: BaseViewControllerProtocol {
-    func updateCars(_ cars: [CarModel]?)
-    func updateHeader(_ header: MainHeaderModel?)
+    func updateCars(
+        _ cars: [CarModel],
+        _ offers: [(make: String, model: String)],
+        _ prosAndCons: [(pros: [String], cons: [String])])
+    func updateHeader(_ header: MainHeaderModel)
 }
 
 final class MainViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     
     private var tvItems = CombinedMainModel()
-//    private var prosAndConsStackViewWidth: CGFloat = 0
     private var amountOfNonExpandableCells: Int = 1
     private var expandedCellIndex: Int = 0
     private var selectedMake: String = ""
@@ -53,30 +55,23 @@ private extension MainViewController {
 
 // MARK: - Presenter output protocol implementation
 extension MainViewController: MainPresenterOutputProtocol {
-    func updateCars(_ cars: [CarModel]?) {
-        if let models = cars,
-           tvItems.cars != models {
-            tvItems.cars = models
-            tvItems.prosAndCons = models.map { ($0.prosList, $0.consList) }
-            
-            let offers: [(make: String, model: String)] = models.map { ($0.make, $0.model) }
-            
-            offers.forEach {
-                if tvItems.pickerItems[$0.make] == nil {
-                    tvItems.pickerItems[$0.make] = []
-                }
-                
-                if !tvItems.pickerItems[$0.make]!.contains($0.model) {
-                    tvItems.pickerItems[$0.make]?.append($0.model)
-                }
-            }
+    func updateCars(
+        _ cars: [CarModel],
+        _ offers: [(make: String, model: String)],
+        _ prosAndCons: [(pros: [String], cons: [String])]) {
+        if tvItems.cars != cars {
+            tvItems.cars = cars
+            tvItems.prosAndCons = prosAndCons
+            tvItems.pickerItems = presenter.convertOffersIntoPickerItems(
+                currentPickerItems: tvItems.pickerItems,
+                offers: offers)
             
             tableView.reloadData()
         }
     }
     
-    func updateHeader(_ header: MainHeaderModel?) {
-        if let header = header, tvItems.header != header {
+    func updateHeader(_ header: MainHeaderModel) {
+        if tvItems.header != header {
             tvItems.header = header
             tableView.reloadData()
         }
