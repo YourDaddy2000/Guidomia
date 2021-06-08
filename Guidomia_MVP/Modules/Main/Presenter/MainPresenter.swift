@@ -14,7 +14,7 @@ protocol MainPresenterProtocol: BasePresenterProtocol {
     func fetchCarList()
     func fetchHeader()
     func filter(make: String)
-    func filter(make: String, model: String, cars: [CarModel])
+    func filter(modelName: String, cars: [CarModel])
 }
 
 final class MainPresenter: MainPresenterProtocol {
@@ -69,11 +69,9 @@ final class MainPresenter: MainPresenterProtocol {
         controller.updateCars(filteredItems)
     }
     
-    func filter(make: String, model: String, cars: [CarModel]) {
-        filter(make: make)
-        
-        guard !model.isEmpty else { return }
-        let filteredItems = cars.filter { $0.model == model }
+    func filter(modelName: String, cars: [CarModel]) {
+        guard !modelName.isEmpty else { return }
+        let filteredItems = cars.filter { $0.model == modelName }
         controller.updateCars(filteredItems)
     }
 }
