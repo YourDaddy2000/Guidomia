@@ -38,7 +38,7 @@ final class FilterTableViewCell: UITableViewCell {
     }
     
     func setModelButtonTitle(_ title: String?) {
-        button(makeButton, setTitle: title)
+        button(modelButton, setTitle: title)
     }
     
     func resetMakeButtonName() {

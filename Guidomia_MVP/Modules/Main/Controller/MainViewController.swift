@@ -61,7 +61,6 @@ extension MainViewController: MainPresenterOutputProtocol {
             
             let offers: [(make: String, model: String)] = models.map { ($0.make, $0.model) }
             
-            
             offers.forEach {
                 if tvItems.pickerItems[$0.make] == nil {
                     tvItems.pickerItems[$0.make] = []
@@ -157,10 +156,12 @@ private extension MainViewController {
             }
             
             self.expandedCellIndex = 0
-            self.applyFilter(forMakePickerView: makePV, selectedMake: self.selectedMake)
+            self.applyFilter(
+                forMakePickerView: makePV,
+                selectedMake: self.selectedMake)
+            self.presenter.filter(make: self.selectedMake)
             self.presenter.filter(
-                make: self.selectedMake,
-                model: self.selectedModel,
+                modelName: self.selectedModel,
                 cars: self.tvItems.cars)
             
             self.tableView?.performBatchUpdates({
