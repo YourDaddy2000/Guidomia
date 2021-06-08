@@ -21,4 +21,12 @@ extension UITableView {
         let nib = UINib(nibName: type.id, bundle: nil)
         register(nib, forHeaderFooterViewReuseIdentifier: type.id)
     }
+    
+    func dequeue<T: UITableViewHeaderFooterView>(_ type: T.Type) -> T {
+        dequeueReusableHeaderFooterView(withIdentifier: type.id) as! T
+    }
+    
+    func dequeue<T: UITableViewCell>(_ type: T.Type) -> T {
+        dequeueReusableCell(withIdentifier: type.id) as! T
+    }
 }

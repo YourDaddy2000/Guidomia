@@ -8,7 +8,13 @@
 import UIKit
 
 final class MainVCHeaderView: UITableViewHeaderFooterView {
-    @IBOutlet weak var carImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var subtitleLabel: UILabel!
+    @IBOutlet private weak var carImageView: UIImageView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var subtitleLabel: UILabel!
+    
+    func configure(with model: (imageName: String, titleText: String, subtitleText: String)) {
+        carImageView.image = UIImage(named: model.imageName)
+        titleLabel.text = model.titleText
+        subtitleLabel.text = model.subtitleText
+    }
 }

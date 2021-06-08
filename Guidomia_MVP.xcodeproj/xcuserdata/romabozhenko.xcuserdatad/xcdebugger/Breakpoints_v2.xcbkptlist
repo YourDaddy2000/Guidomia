@@ -62,9 +62,9 @@
             filePath = "Guidomia_MVP/Modules/Main/Controller/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "tableView(_:viewForHeaderInSection:)"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "updateHeader(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -78,10 +78,89 @@
             filePath = "Guidomia_MVP/Modules/Main/Controller/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "tableView(_:cellForRowAt:)"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "MainViewController"
+            landmarkType = "21">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C9F13865-DE47-4B56-B54B-B9E4108276D8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Guidomia_MVP/Common/Extensions/Extension+UITableView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "register(_:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5B80C9B8-2B0D-4630-BF80-6D3688E5CC28"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Guidomia_MVP/Modules/Main/Controller/MainViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "getFilterCell(for:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5B80C9B8-2B0D-4630-BF80-6D3688E5CC28 - e71b7113e3b9dd25"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Guidomia_MVP.MainViewController.(getFilterCell in _81474682E0FC84827B3098D873B1D64B)(for: Foundation.IndexPath) -&gt; __C.UITableViewCell"
+                  moduleName = "Guidomia_MVP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/romabozhenko/Desktop/Guidomia_MVP/Guidomia_MVP/Modules/Main/Controller/MainViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "161"
+                  endingLineNumber = "161"
+                  offsetFromSymbolStart = "833">
+               </Location>
+               <Location
+                  uuid = "5B80C9B8-2B0D-4630-BF80-6D3688E5CC28 - e71b7113e3b9dd25"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Guidomia_MVP.MainViewController.(getFilterCell in _81474682E0FC84827B3098D873B1D64B)(for: Foundation.IndexPath) -&gt; __C.UITableViewCell"
+                  moduleName = "Guidomia_MVP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/romabozhenko/Desktop/Guidomia_MVP/Guidomia_MVP/Modules/Main/Controller/MainViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "161"
+                  endingLineNumber = "161"
+                  offsetFromSymbolStart = "1034">
+               </Location>
+               <Location
+                  uuid = "5B80C9B8-2B0D-4630-BF80-6D3688E5CC28 - 42efad1fd2e787a5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (__C.UIPickerView) -&gt; () in Guidomia_MVP.MainViewController.(getFilterCell in _81474682E0FC84827B3098D873B1D64B)(for: Foundation.IndexPath) -&gt; __C.UITableViewCell"
+                  moduleName = "Guidomia_MVP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/romabozhenko/Desktop/Guidomia_MVP/Guidomia_MVP/Modules/Main/Controller/MainViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "161"
+                  endingLineNumber = "161"
+                  offsetFromSymbolStart = "176">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
