@@ -19,7 +19,6 @@ final class MainViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     
     private var tvItems = CombinedMainModel()
-    private var amountOfNonExpandableCells: Int = 1
     private var expandedCellIndex: Int = 0
     private var selectedMake: String = ""
     private var selectedModel: String = ""
@@ -78,9 +77,10 @@ extension MainViewController: MainPresenterOutputProtocol {
     }
 }
 
+//MARK: - UITableViewDataSource & UITableViewDelegate extension
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tvItems.header else { return nil }
+        guard section == 0, let header = tvItems.header else { return nil }
         let view = tableView.dequeue(MainVCHeaderView.self)
         
         view.configure(with: (
@@ -92,18 +92,21 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         return view
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return tvItems.header == nil ? .zero : tableView.bounds.width / 1.5
+        return tvItems.header == nil || section != 0 ? .zero : tableView.bounds.width / 1.5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tvItems.cars.count + amountOfNonExpandableCells
+        return section == 0 ? 1 : tvItems.cars.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.item - amountOfNonExpandableCells != expandedCellIndex,
-           indexPath.item != 0 {
-            expandedCellIndex = indexPath.item - amountOfNonExpandableCells
+        if indexPath.item != expandedCellIndex {
+            expandedCellIndex = indexPath.item
             
             UIView.transition(
                 with: tableView,
@@ -117,12 +120,12 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.item == .zero {
+        if indexPath.section == .zero {
             return getFilterCell(for: indexPath)
         }
         
         return getMainVCExpandableCell(for: IndexPath(
-                                        item: indexPath.item - amountOfNonExpandableCells,
+                                        item: indexPath.item,
                                         section: .zero))
     }
 }
@@ -146,11 +149,11 @@ private extension MainViewController {
                   !self.selectedMake.isEmpty else {
                 return cell.didTapMakeButton()
             }
-            
+            self.resetSelectedModel()
             self.expandedCellIndex = 0
-            self.applyFilter(
-                forMakePickerView: makePV,
-                selectedMake: self.selectedMake)
+//            self.applyFilter(
+//                forMakePickerView: makePV,
+//                selectedMake: self.selectedMake)
             self.presenter.filter(make: self.selectedMake)
             self.presenter.filter(
                 modelName: self.selectedModel,
@@ -171,7 +174,7 @@ private extension MainViewController {
     func getMainVCExpandableCell(for indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(MainVCExpandableCell.self)
         let items = tvItems.cars
-        let isLast = indexPath.item == items.count - amountOfNonExpandableCells
+        let isLast = indexPath.item == items.count - 1
         let shouldExpand = indexPath.item == expandedCellIndex
         
         cell.configure(with: items[indexPath.item], isLast: isLast)
