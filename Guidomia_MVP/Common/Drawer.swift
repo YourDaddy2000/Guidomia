@@ -59,7 +59,7 @@ enum Drawer {
             height: height)
         
         layer.frame.size = size
-        layer.backgroundColor = UIColor.navBarOrange.cgColor
+        layer.backgroundColor = UIColor(hex: "#FC6016").cgColor
         
         return imageFromLayer(layer: layer)
     }
