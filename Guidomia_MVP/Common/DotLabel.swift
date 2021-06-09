@@ -25,7 +25,7 @@ final class DotLabel: UILabel {
         let dotSize = 8
         layer.frame.size = CGSize(width: dotSize, height: dotSize)
         layer.cornerRadius = layer.frame.height / 2
-        layer.backgroundColor = UIColor.navBarOrange.cgColor
+        layer.backgroundColor = UIColor(hex: "#FC6016").cgColor
         return layer
     }
 }
