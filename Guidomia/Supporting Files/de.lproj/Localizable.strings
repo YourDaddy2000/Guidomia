@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  Guidomia
+
+  Created by Roman Bozhenko on 09.06.2021.
+  
+*/
+
+"pros" = "Vorteile:";
+"cons" = "Nachteile:";
+"price" = "Preis: ";
+"filters" = "Filter";
+"any_make" = "Beliebige Marke";
+"any_model" = "Beliebiges Modell";
