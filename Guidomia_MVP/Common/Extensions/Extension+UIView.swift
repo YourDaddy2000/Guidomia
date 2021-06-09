@@ -93,3 +93,28 @@ extension UIStackView {
         arrangedSubviews.forEach { $0.removeFromSuperview() }
     }
 }
+
+extension UILabel {
+    @IBInspectable var localizedString: String? {
+        set {
+            text = newValue?.localized
+        }
+        
+        get {
+            return text
+        }
+    }
+}
+
+extension UIButton {
+    @IBInspectable var localizedString: String? {
+        set {
+            setTitle(newValue?.localized, for: .normal)
+        }
+        
+        get {
+            return titleLabel?.text
+        }
+    }
+}
+

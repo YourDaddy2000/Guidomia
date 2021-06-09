@@ -6,5 +6,9 @@
   
 */
 
- "any_make" = "Any Make";
- "any_model" = "Any Model";
+"pros" = "Pros :";
+"cons" = "Cons :";
+"price" = "Price: ";
+"filters" = "Filters";
+"any_make" = "Any Make";
+"any_model" = "Any Model";
