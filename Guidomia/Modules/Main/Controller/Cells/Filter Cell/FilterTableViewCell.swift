@@ -12,9 +12,11 @@ final class FilterTableViewCell: UITableViewCell {
     @IBOutlet private weak var modelButton: UIButton!
     @IBOutlet private weak var makePickerView: UIPickerView!
     @IBOutlet private weak var modelPickerView: UIPickerView!
+    @IBOutlet private weak var makeApplyFilterButton: UIButton!
+    @IBOutlet private weak var modelApplyFilterButton: UIButton!
     
-    var makePickerViewAction: ((_ makePV: UIPickerView, UIPickerView) -> Void)!
-    var modelPickerViewAction: ((_ makePV: UIPickerView, UIPickerView) -> Void)!
+    var makePickerViewAction: ((_ makePV: UIPickerView) -> Void)!
+    var modelPickerViewAction: (() -> Void)!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,6 +43,27 @@ final class FilterTableViewCell: UITableViewCell {
         button(makeButton, setTitle: "any_make".localized)
     }
     
+    func toggleMakePickerViewIsHidden() {
+        makePickerView.isHidden.toggle()
+        makeApplyFilterButton.isHidden.toggle()
+    }
+    
+    func toggleModelPickerViewIsHidden() {
+        modelPickerView.reloadAllComponents()
+        modelPickerView.isHidden.toggle()
+        modelApplyFilterButton.isHidden.toggle()
+    }
+    
+    func hideMakePickerView() {
+        makePickerView.isHidden = true
+        makeApplyFilterButton.isHidden = true
+    }
+    
+    func hideModelPickerView() {
+        modelPickerView.isHidden = true
+        modelApplyFilterButton.isHidden = true
+    }
+    
     func resetModelButtonName() {
         button(modelButton, setTitle: "any_model".localized)
     }
@@ -50,11 +73,11 @@ final class FilterTableViewCell: UITableViewCell {
     }
     
     @IBAction func didTapMakeButton (_ sender: UIButton? = nil) {
-        makePickerViewAction?(makePickerView, modelPickerView)
+        makePickerViewAction?(makePickerView)
     }
     
     @IBAction func didTapModelButton (_ sender: UIButton? = nil) {
-        modelPickerViewAction?(makePickerView, modelPickerView)
+        modelPickerViewAction?()
     }
     
     //MARK: Private
@@ -67,5 +90,7 @@ final class FilterTableViewCell: UITableViewCell {
         resetModelButtonName()
         makePickerView.isHidden = true
         modelPickerView.isHidden = true
+        makeApplyFilterButton.isHidden = true
+        modelApplyFilterButton.isHidden = true
     }
 }

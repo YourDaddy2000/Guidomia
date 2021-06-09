@@ -135,34 +135,32 @@ private extension MainViewController {
     func getFilterCell(for indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(FilterTableViewCell.self)
         
-        cell.makePickerViewAction = { [weak self] makePV, modelPV in
-            self?.applyFilter(forMakePickerView: makePV, selectedMake: self!.selectedMake)
+        cell.makePickerViewAction = { [weak self] makePV in
+            self?.applyFilter(
+                forMakePickerView: makePV,
+                selectedMake: self!.selectedMake)
             
+            self?.resetSelectedModel()
             self?.tableView.performBatchUpdates({
-                makePV.isHidden.toggle()
-                modelPV.isHidden = true
+                cell.toggleMakePickerViewIsHidden()
+                cell.hideModelPickerView()
             })
         }
         
-        cell.modelPickerViewAction = { [weak self, unowned cell] makePV, modePV in
+        cell.modelPickerViewAction = { [weak self, unowned cell] in
             guard let self = self,
                   !self.selectedMake.isEmpty else {
                 return cell.didTapMakeButton()
             }
-            self.resetSelectedModel()
             self.expandedCellIndex = 0
-//            self.applyFilter(
-//                forMakePickerView: makePV,
-//                selectedMake: self.selectedMake)
             self.presenter.filter(make: self.selectedMake)
             self.presenter.filter(
                 modelName: self.selectedModel,
                 cars: self.tvItems.cars)
             
             self.tableView?.performBatchUpdates({
-                modePV.reloadAllComponents()
-                modePV.isHidden.toggle()
-                makePV.isHidden = true
+                cell.toggleModelPickerViewIsHidden()
+                cell.hideMakePickerView()
             })
         }
         
