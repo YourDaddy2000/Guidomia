@@ -101,21 +101,18 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard indexPath.item - amountOfNonExpandableCells != expandedCellIndex,
-              indexPath.item != 0 else { return }
-        expandedCellIndex = indexPath.item - amountOfNonExpandableCells
-        
-        tableView.performBatchUpdates { [weak tableView] in
-            tableView?.visibleCells.forEach {
-                ($0 as? MainVCExpandableCell)?.expandProsAndCons(false)
-            }
+        if indexPath.item - amountOfNonExpandableCells != expandedCellIndex,
+           indexPath.item != 0 {
+            expandedCellIndex = indexPath.item - amountOfNonExpandableCells
             
-            if let cell = tableView?.dequeueReusableCell(
-                withIdentifier: MainVCExpandableCell.id,
-                for: indexPath) as? MainVCExpandableCell {
-                cell.expandProsAndCons(true)
-                tableView?.reloadRows(at: [indexPath], with: .automatic)
-            }
+            UIView.transition(
+                with: tableView,
+                duration: 0.15,
+                options: [.transitionCrossDissolve],
+                animations: {
+                    tableView.reloadData()
+                }
+            )
         }
     }
     
