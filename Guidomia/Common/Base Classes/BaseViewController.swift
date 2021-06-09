@@ -14,17 +14,16 @@ protocol BaseViewControllerProtocol: AnyObject {
 
 class BaseViewController: UIViewController {
     
+    override var title: String? { didSet { setTitle(title) } }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavBar()
-        
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
-    override var title: String? { didSet { setTitle(title) } }
     
     func configureNavBar() {
         title = .guidomia
@@ -78,6 +77,7 @@ extension BaseViewController: BaseViewControllerProtocol {
         let titleLabelTag = 123
         let titleLabel = UILabel()
         let navBar = navigationController?.navigationBar
+        
         titleLabel.text = title.uppercased()
         titleLabel.font = UIFont(name: "Copperplate", size: 27)
         titleLabel.textColor = .white

@@ -20,14 +20,4 @@ struct CarModel: Codable, Equatable {
             .appending(model.lowercased())
             .replacingOccurrences(of: " ", with: "_")
     }
-    
-    static func ==(lhs: CarModel, rhs: CarModel) -> Bool {
-        lhs.consList == rhs.consList &&
-        lhs.customerPrice == rhs.customerPrice &&
-        lhs.make == rhs.make &&
-        lhs.marketPrice == rhs.marketPrice &&
-        lhs.model == rhs.model &&
-        lhs.prosList == rhs.prosList &&
-        lhs.rating == rhs.rating
-    }
 }
