@@ -35,6 +35,9 @@
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedString" value="filters"/>
+                                                        </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="b45-r9-y1l">
                                                         <rect key="frame" x="0.0" y="97" width="403" height="303"/>

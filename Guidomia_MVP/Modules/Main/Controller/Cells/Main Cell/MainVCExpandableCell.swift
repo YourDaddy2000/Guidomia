@@ -38,7 +38,7 @@ final class MainVCExpandableCell: UITableViewCell {
         bottomSpacerView.isHidden = isLast
         
         carImageView.image = UIImage(named: item.imageName)
-        priceLabel.text = "Price : \(item.customerPrice.kFormatted)"
+        priceLabel.text = "price".localized + item.customerPrice.kFormatted
         titleLabel.text = item.make + " " + item.model
         
         setRating(item.rating)

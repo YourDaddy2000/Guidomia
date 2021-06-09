@@ -6,5 +6,9 @@
   
 */
 
+"pros" = "Vorteile:";
+"cons" = "Nachteile:";
+"price" = "Preis: ";
+"filters" = "Filter";
 "any_make" = "Beliebige Marke";
 "any_model" = "Beliebiges Modell";
