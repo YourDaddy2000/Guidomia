@@ -5,10 +5,6 @@
 //  Created by Roman Bozhenko on 06.06.2021.
 //
 
-private let makeString: String = "Make"
-private let modelString: String = "Model"
-private let anyString: String = "Any "
-
 import UIKit
 
 final class FilterTableViewCell: UITableViewCell {
@@ -42,11 +38,11 @@ final class FilterTableViewCell: UITableViewCell {
     }
     
     func resetMakeButtonName() {
-        button(makeButton, setTitle: anyString + makeString)
+        button(makeButton, setTitle: "any_make".localized)
     }
     
     func resetModelButtonName() {
-        button(modelButton, setTitle: anyString + modelString)
+        button(modelButton, setTitle: "any_model".localized)
     }
     
     func selectModelPickerViewEmptyRow() {
@@ -67,6 +63,8 @@ final class FilterTableViewCell: UITableViewCell {
     }
     
     private func reset() {
+        resetMakeButtonName()
+        resetModelButtonName()
         makePickerView.isHidden = true
         modelPickerView.isHidden = true
     }
