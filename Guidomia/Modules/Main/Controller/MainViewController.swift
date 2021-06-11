@@ -10,8 +10,7 @@ import UIKit
 protocol MainPresenterOutputProtocol: BaseViewControllerProtocol {
     func updateCars(
         _ cars: [CarModel],
-        _ offers: [(make: String, model: String)],
-        _ prosAndCons: [(pros: [String], cons: [String])])
+        _ offers: [(make: String, model: String)])
     func updateHeader(_ header: MainHeaderModel)
 }
 
@@ -56,11 +55,9 @@ private extension MainViewController {
 extension MainViewController: MainPresenterOutputProtocol {
     func updateCars(
         _ cars: [CarModel],
-        _ offers: [(make: String, model: String)],
-        _ prosAndCons: [(pros: [String], cons: [String])]) {
+        _ offers: [(make: String, model: String)]) {
         if tvItems.cars != cars {
             tvItems.cars = cars
-            tvItems.prosAndCons = prosAndCons
             tvItems.pickerItems = presenter.convertOffersIntoPickerItems(
                 currentPickerItems: tvItems.pickerItems,
                 offers: offers)
@@ -175,12 +172,10 @@ private extension MainViewController {
         let isLast = indexPath.item == items.count - 1
         let shouldExpand = indexPath.item == expandedCellIndex
         
-        cell.configure(with: items[indexPath.item], isLast: isLast)
-        cell.expandProsAndCons(shouldExpand)
-        
-        let prosAndCons = tvItems.prosAndCons[indexPath.item]
-        cell.fillProsStackView(with: prosAndCons.pros)
-        cell.fillConsStackView(with: prosAndCons.cons)
+        cell.configure(
+            with: items[indexPath.item],
+            isLast: isLast,
+            expandProAndCons: shouldExpand)
         
         return cell
     }

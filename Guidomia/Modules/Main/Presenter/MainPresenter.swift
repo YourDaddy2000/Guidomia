@@ -113,9 +113,8 @@ private extension MainPresenter {
     
     func handle(_ cars: [CarModel]?) {
         guard let cars = cars else { return }
-        let prosAndCons = cars.map { ($0.prosList, $0.consList) }
         let offers = cars.map { ($0.make, $0.model) }
         
-        controller.updateCars(cars, offers, prosAndCons)
+        controller.updateCars(cars, offers)
     }
 }
