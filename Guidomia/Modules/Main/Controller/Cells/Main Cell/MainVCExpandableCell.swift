@@ -34,7 +34,7 @@ final class MainVCExpandableCell: UITableViewCell {
     }
     
     //MARK: Public Methods
-    func configure(with item: CarModel, isLast: Bool) {
+    func configure(with item: CarModel, isLast: Bool, expandProAndCons shouldExpand: Bool) {
         bottomSpacerView.isHidden = isLast
         
         carImageView.image = UIImage(named: item.imageName)
@@ -42,7 +42,14 @@ final class MainVCExpandableCell: UITableViewCell {
         titleLabel.text = item.make + " " + item.model
         
         setRating(item.rating)
+        expandProsAndCons(shouldExpand)
+        fillProsStackView(with: item.prosList)
+        fillConsStackView(with: item.consList)
     }
+}
+
+//MARK: Private Methods Extension
+private extension MainVCExpandableCell {
     
     func expandProsAndCons(_ isExpanded: Bool) {
         hide(!isExpanded, views: [prosStackViewContainer,
@@ -58,8 +65,7 @@ final class MainVCExpandableCell: UITableViewCell {
         stackView(consStackView, fillWith: items)
     }
     
-    //MARK: Private Methods
-    private func stackView(_ stackView: UIStackView, fillWith items: [String]) {
+    func stackView(_ stackView: UIStackView, fillWith items: [String]) {
         items.forEach {
             guard !$0.isEmpty else { return }
             let label = getDotLabelForProsAndConsStackView()
@@ -69,7 +75,7 @@ final class MainVCExpandableCell: UITableViewCell {
         }
     }
     
-    private func setHeight(of label: DotLabel, stackViewWidth: CGFloat) {
+    func setHeight(of label: DotLabel, stackViewWidth: CGFloat) {
         guard stackViewWidth > .zero else { return }
         label.sizeToFit()
         var labelHeight = label.bounds.height
@@ -87,7 +93,7 @@ final class MainVCExpandableCell: UITableViewCell {
         label.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
     }
     
-    private func getDotLabelForProsAndConsStackView() -> DotLabel {
+    func getDotLabelForProsAndConsStackView() -> DotLabel {
         let label = DotLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 16)
@@ -96,7 +102,7 @@ final class MainVCExpandableCell: UITableViewCell {
         return label
     }
     
-    private func setRating(_ rating: Int) {
+    func setRating(_ rating: Int) {
         for i in 0..<rating {
             starsStackView.subviews[i].alpha = 1
         }
